@@ -64,7 +64,7 @@
       let search = $('#form-search input[name="search"]').val();
       let type_id = "{{ $type->id }}";
       let url = "{{ url('') }}";
-      $.get(`${url}/${type_id}/search/${search}?page=${page}`, function(res){
+      $.get(`${url}/${type_id}/search?search=${search}&page=${page}`, function(res){
         $('#list-details').html(res);
       });
     }

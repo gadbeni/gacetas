@@ -20,11 +20,13 @@ class HomeController extends Controller
         }
     }
 
-    public function types_list($type_id, $search = null){
+    public function types_list($type_id){
+        $search = request('search') ?? null;
         $query_search = $search ? '(title like "%'.$search.'%" or tags like "%'.$search.'%" or description like "%'.$search.'%")' : 1;
         $list = Publication::where('publications_type_id', $type_id)
                     ->whereRaw($query_search)
-                    ->where('deleted_at', NULL)->paginate(10);
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10);
         return view('types-list', compact('list'));
     }
 }

@@ -23,11 +23,11 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-            @foreach (App\Models\PublicationsType::where('deleted_at', NULL)->limit(4)->get() as $item)
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0 card-item-link" data-slug="{{ $item->slug }}">
+            @foreach (App\Models\PublicationsType::where('deleted_at', NULL)->get() as $item)
+                <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-5 card-item-link" data-slug="{{ $item->slug }}">
                   <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                     <div class="icon"><i class="bi bi-{{ $item->icon }}"></i></div>
-                    <h4 class="title"><a href="">{{ $item->title }}</a></h4>
+                    <h4 class="title"><a>{{ $item->title }}</a></h4>
                     <p class="description">{{ $item->description }}</p>
                   </div>
                 </div>
@@ -54,7 +54,7 @@
           <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
             <h3>GACETA JURIDICA DEPARTAMENTAL</h3>
             <p>
-              Es el instrumento informativo que tiene por objeto publicar de manera permanente las Leyes Departamentales, Decretos Departamentales y de Gobernación, Resoluciones de Gobernación y Administrativas y sobre todo cualquier otro documento de carácter general que emita el Gobierno Autónomo Deoartamental del Beni.
+              Es el instrumento informativo que tiene por objeto publicar de manera permanente las Leyes Departamentales, Decretos Departamentales y de Gobernación, Resoluciones de Gobernación y Administrativas y sobre todo cualquier otro documento de carácter general que emita el Gobierno Autónomo Departamental del Beni.
             </p>
             <ul>
               <li>
@@ -158,9 +158,16 @@
     @include('layouts.contact-us')
 
   </main><!-- End #main -->
+
+  <!-- <div id="flake">&#10052;</div> -->
+@endsection
+
+@section('css')
+  <link rel="stylesheet" href="{{ asset('css/snowfall.css') }}">
 @endsection
 
 @section('script')
+  <script src="{{ asset('js/snowfall.js') }}"></script>
   <script>
     $(document).ready(function(){
       $('.card-item-link').click(function(){

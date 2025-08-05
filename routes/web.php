@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::get('/{slug}', [HomeController::class, 'types_index']);
-Route::get('/{type_id}/search/{value?}', [HomeController::class, 'types_list']);
+Route::get('/{type_id}/search', [HomeController::class, 'types_list']);
 
 // Clear cache
 Route::get('/admin/clear-cache', function() {

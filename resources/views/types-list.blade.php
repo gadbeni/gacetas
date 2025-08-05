@@ -8,7 +8,7 @@
                     @php
                         $link = null;
                         $name = null;
-                        if($item->file){
+                        if($item->file != '[]'){
                             $file = json_decode($item->file);
                             $link = $file[0]->download_link;
                             $name = $file[0]->original_name;
