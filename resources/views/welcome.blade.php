@@ -7,7 +7,7 @@
   @endphp
   <section id="hero" class="d-flex align-items-center" style='background: url("{{ $site_banner ? Voyager::image($site_banner) : asset('images/site-banner.jpg') }}") top left;'>
     <div class="container" data-aos="zoom-out" data-aos-delay="100">
-      <h1 class="text-white">Bienvenidosssss a <span>{{ setting('site.title') }}</span></h1>
+      <h1 class="text-white">Bienvenido a <span>{{ setting('site.title') }}</span></h1>
       <h2 class="text-white">{{ setting('site.description') }}</h2>
       <div class="d-flex">
         <a href="#featured-services" class="btn-get-started scrollto">Iniciar ahora</a>
