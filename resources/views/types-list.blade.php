@@ -5,15 +5,16 @@
             $name = null;
             if($item->file != '[]'){
                 $file = json_decode($item->file);
-                $link = $file[0]->download_link;
                 $name = $file[0]->original_name;
+                // Resolve the file URL: server first, then S3.
+                $link = \App\Http\Controllers\StorageController::url($file[0]->download_link);
             }
         @endphp
         <div class="g-pub">
             <h5>{{ $item->title }}</h5>
             <div class="g-pub-desc">{!! $item->description !!}</div>
             <div class="g-pub-foot">
-                <a href="{{ asset('storage/'.$link) }}" title="{{ $name }}" target="_blank"
+                <a href="{{ $link }}" title="{{ $name }}" target="_blank"
                    class="g-btn g-btn-ghost {{ $link ? '' : 'disabled' }}">
                     <i class="bi bi-cloud-download"></i> Descargar
                 </a>

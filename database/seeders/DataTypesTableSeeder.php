@@ -119,7 +119,7 @@ class DataTypesTableSeeder extends Seeder
                 'icon' => 'voyager-certificate',
                 'model_name' => 'App\\Models\\Publication',
                 'policy_name' => NULL,
-                'controller' => NULL,
+                'controller' => 'App\\Http\\Controllers\\Admin\\PublicationController',
                 'description' => NULL,
                 'generate_permissions' => 1,
                 'server_side' => 0,
