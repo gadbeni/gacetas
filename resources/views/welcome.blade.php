@@ -6,6 +6,8 @@
   @php
     $site_banner = Voyager::setting('site.banner', '');
     $hero_bg = $site_banner ? Voyager::image($site_banner) : asset('images/site-banner.jpg');
+    $hero_types = App\Models\PublicationsType::with('publications')->where('deleted_at', NULL)->get();
+    $hero_total = $hero_types->sum(fn ($t) => count($t->publications));
   @endphp
   <section class="g-hero" data-bg style="--hero-bg:url('{{ $hero_bg }}')">
     <div class="g-container">
@@ -17,6 +19,21 @@
         <a href="#tipos" class="g-btn g-btn-primary">Explorar gacetas <i class="bi bi-arrow-down-short"></i></a>
         <a href="https://www.youtube.com/watch?v=LMZoMUov9LQ" class="glightbox g-btn g-btn-outline"><i class="bi bi-play-circle"></i> Ver video</a>
       </div>
+
+      @if ($hero_types->count())
+        <div class="g-hero-stats">
+          <div class="g-hero-stat">
+            <span class="g-hero-stat-num">{{ $hero_total }}</span>
+            <span class="g-hero-stat-lbl">Publicaciones</span>
+          </div>
+          @foreach ($hero_types->take(3) as $item)
+            <div class="g-hero-stat">
+              <span class="g-hero-stat-num">{{ count($item->publications) }}</span>
+              <span class="g-hero-stat-lbl">{{ $item->title }}</span>
+            </div>
+          @endforeach
+        </div>
+      @endif
     </div>
   </section>
 
@@ -32,9 +49,12 @@
         </div>
 
         <div class="g-grid">
-          @foreach (App\Models\PublicationsType::where('deleted_at', NULL)->get() as $item)
+          @foreach (App\Models\PublicationsType::with('publications')->where('deleted_at', NULL)->get() as $item)
             <div class="g-card card-item-link" data-slug="{{ $item->slug }}" data-aos="fade-up">
-              <div class="g-card-icon"><i class="bi bi-{{ $item->icon }}"></i></div>
+              <div class="g-card-top">
+                <div class="g-card-icon"><i class="bi bi-{{ $item->icon }}"></i></div>
+                <span class="g-card-count">{{ count($item->publications) }} {{ count($item->publications) == 1 ? 'publicación' : 'publicaciones' }}</span>
+              </div>
               <h3>{{ $item->title }}</h3>
               <p>{{ $item->description }}</p>
               <span class="g-card-link">Ver publicaciones <i class="bi bi-arrow-right-short"></i></span>
