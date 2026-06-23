@@ -1,179 +1,144 @@
 @extends('layouts.master')
 
 @section('content')
-  <!-- ======= Hero Section ======= -->
+
+  <!-- ======= Hero ======= -->
   @php
     $site_banner = Voyager::setting('site.banner', '');
+    $hero_bg = $site_banner ? Voyager::image($site_banner) : asset('images/site-banner.jpg');
   @endphp
-  <section id="hero" class="d-flex align-items-center" style='background: url("{{ $site_banner ? Voyager::image($site_banner) : asset('images/site-banner.jpg') }}") top left;'>
-    <div class="container" data-aos="zoom-out" data-aos-delay="100">
-      <h1 class="text-white">Bienvenido a <span>{{ setting('site.title') }}</span></h1>
-      <h2 class="text-white">{{ setting('site.description') }}</h2>
-      <div class="d-flex">
-        <a href="#featured-services" class="btn-get-started scrollto">Iniciar ahora</a>
-        <a href="https://www.youtube.com/watch?v=LMZoMUov9LQ" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span class="text-white">Ver Video</span></a>
+  <section class="g-hero" data-bg style="--hero-bg:url('{{ $hero_bg }}')">
+    <div class="g-container">
+      <span class="g-kicker">Gobierno Autónomo Departamental del Beni</span>
+      <h1>Bienvenido a <span>{{ setting('site.title') }}</span></h1>
+      <p>{{ setting('site.description') }}</p>
+      <div class="g-hero-rule"></div>
+      <div class="g-hero-actions">
+        <a href="#tipos" class="g-btn g-btn-primary">Explorar gacetas <i class="bi bi-arrow-down-short"></i></a>
+        <a href="https://www.youtube.com/watch?v=LMZoMUov9LQ" class="glightbox g-btn g-btn-outline"><i class="bi bi-play-circle"></i> Ver video</a>
       </div>
     </div>
-  </section><!-- End Hero -->
+  </section>
 
-  <main id="main">
+  <main>
 
-    <!-- ======= Featured Services Section ======= -->
-    <section id="featured-services" class="featured-services">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-            @foreach (App\Models\PublicationsType::where('deleted_at', NULL)->get() as $item)
-                <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-5 card-item-link" data-slug="{{ $item->slug }}">
-                  <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon"><i class="bi bi-{{ $item->icon }}"></i></div>
-                    <h4 class="title"><a>{{ $item->title }}</a></h4>
-                    <p class="description">{{ $item->description }}</p>
-                  </div>
-                </div>
-            @endforeach
+    <!-- ======= Tipos de publicación ======= -->
+    <section id="tipos" class="g-section">
+      <div class="g-container">
+        <div class="g-section-head" data-aos="fade-up">
+          <span class="g-eyebrow">Categorías</span>
+          <h2>Explora la <span>normativa oficial</span></h2>
+          <p>Selecciona una categoría para consultar y descargar las publicaciones del Ejecutivo Departamental.</p>
         </div>
 
-      </div>
-    </section><!-- End Featured Services Section -->
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Acerca de</h2>
-          <h3>Conoce más <span>acerca de nosotros</span></h3>
-          <p>A continuación te mostramos un breve resumen de las actividades que llevamos a cabo.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-            <img src="{{ asset('images/site-about.jpg') }}" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-            <h3>GACETA JURIDICA DEPARTAMENTAL</h3>
-            <p>
-              Es el instrumento informativo que tiene por objeto publicar de manera permanente las Leyes Departamentales, Decretos Departamentales y de Gobernación, Resoluciones de Gobernación y Administrativas y sobre todo cualquier otro documento de carácter general que emita el Gobierno Autónomo Departamental del Beni.
-            </p>
-            <ul>
-              <li>
-                <i class="bx bx-store-alt"></i>
-                <div>
-                  <h5>MISIÓN</h5>
-                  <p>Custodiar y salvaguardar cronológica y oportunamente en la Gaceta Oficial las Leyes Decretos y Resoluciones que emita el Ejecutivo Departamental del Beni.</p>
-                </div>
-              </li>
-              <li>
-                <i class="bx bx-images"></i>
-                <div>
-                  <h5>VISIÓN</h5>
-                  <p>Constituirse en el órgano oficial de publicación y difusión de toda la normativa emitida por el Ejecutivo  Departamental.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-    <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-            @foreach (App\Models\PublicationsType::with('publications')->where('deleted_at', NULL)->limit(4)->get() as $item)
-                <div class="col-lg-3 col-md-6">
-                    <div class="count-box">
-                        <i class="bi bi-{{ $item->icon }}"></i>
-                        <span data-purecounter-start="0" data-purecounter-end="{{ count($item->publications) }}" data-purecounter-duration="1" class="purecounter"></span>
-                        <p>{{ $item->title }}</p>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-      </div>
-    </section><!-- End Counts Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials" style='background: url("{{ setting('site.background') ? Voyager::image(setting('site.background')) : asset('images/site-background.jpg') }}") no-repeat;'>
-      <div class="container" data-aos="zoom-in">
-
-        <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            @foreach (App\Models\Official::where('deleted_at', NULL)->get() as $item)
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="{{ $item->image ? asset('storage/'.$item->image) : asset('images/user.png') }}" class="testimonial-img" alt="">
-                <h3>{{ $item->full_name }}</h3>
-                <h4>{{ $item->job }}</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>{{ $item->description }}<i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
+        <div class="g-grid">
+          @foreach (App\Models\PublicationsType::where('deleted_at', NULL)->get() as $item)
+            <div class="g-card card-item-link" data-slug="{{ $item->slug }}" data-aos="fade-up">
+              <div class="g-card-icon"><i class="bi bi-{{ $item->icon }}"></i></div>
+              <h3>{{ $item->title }}</h3>
+              <p>{{ $item->description }}</p>
+              <span class="g-card-link">Ver publicaciones <i class="bi bi-arrow-right-short"></i></span>
             </div>
-            @endforeach
-
-          </div>
-          <div class="swiper-pagination"></div>
+          @endforeach
         </div>
-
       </div>
     </section>
 
-    <!-- ======= Frequently Asked Questions Section ======= -->
-    <section id="faq" class="faq section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>F.A.Q</h2>
-          <h3>Preguntas <span>Frecuentes</span></h3>
-          <p>Consulta las preguntas mas habituales realizadas por los visitantes de la página</p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-xl-10">
-            <ul class="faq-list">
-              @foreach (App\Models\FrequentQuestion::where('deleted_at', NULL)->get() as $item)
+    <!-- ======= Acerca de ======= -->
+    <section id="about" class="g-section alt">
+      <div class="g-container">
+        <div class="g-about-grid">
+          <div data-aos="fade-right">
+            <img src="{{ asset('images/site-about.jpg') }}" alt="Gaceta Jurídica Departamental">
+          </div>
+          <div data-aos="fade-left">
+            <span class="g-eyebrow">Acerca de</span>
+            <h3>Gaceta Jurídica Departamental</h3>
+            <p>
+              Es el instrumento informativo que tiene por objeto publicar de manera permanente las Leyes Departamentales, Decretos Departamentales y de Gobernación, Resoluciones de Gobernación y Administrativas y sobre todo cualquier otro documento de carácter general que emita el Gobierno Autónomo Departamental del Beni.
+            </p>
+            <ul class="g-mv">
               <li>
-                <div data-bs-toggle="collapse" class="collapsed question" href="#faq-{{ $item->id }}">{{ $item->title }} <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq-{{ $item->id }}" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    {!! $item->description !!}
-                  </p>
+                <div class="g-mv-icon"><i class="bx bx-store-alt"></i></div>
+                <div>
+                  <h5>Misión</h5>
+                  <p>Custodiar y salvaguardar cronológica y oportunamente en la Gaceta Oficial las Leyes, Decretos y Resoluciones que emita el Ejecutivo Departamental del Beni.</p>
                 </div>
               </li>
-              @endforeach
-
+              <li>
+                <div class="g-mv-icon"><i class="bx bx-images"></i></div>
+                <div>
+                  <h5>Visión</h5>
+                  <p>Constituirse en el órgano oficial de publicación y difusión de toda la normativa emitida por el Ejecutivo Departamental.</p>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
-
       </div>
-    </section><!-- End Frequently Asked Questions Section -->
+    </section>
+
+    <!-- ======= Estadísticas ======= -->
+    <section class="g-section g-stats-wrap">
+      <div class="g-container">
+        <div class="g-stats">
+          @foreach (App\Models\PublicationsType::with('publications')->where('deleted_at', NULL)->limit(4)->get() as $item)
+            <div class="g-stat" data-aos="zoom-in">
+              <i class="bi bi-{{ $item->icon }}"></i>
+              <span class="g-stat-num purecounter" data-purecounter-start="0" data-purecounter-end="{{ count($item->publications) }}" data-purecounter-duration="1">0</span>
+              <p>{{ $item->title }}</p>
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= FAQ ======= -->
+    <section class="g-section alt">
+      <div class="g-container">
+        <div class="g-section-head" data-aos="fade-up">
+          <span class="g-eyebrow">F.A.Q</span>
+          <h2>Preguntas <span>frecuentes</span></h2>
+          <p>Consulta las preguntas más habituales realizadas por los visitantes de la página.</p>
+        </div>
+
+        <div class="g-faq" data-aos="fade-up">
+          @foreach (App\Models\FrequentQuestion::where('deleted_at', NULL)->get() as $item)
+            <div class="g-faq-item">
+              <div class="g-faq-q" aria-expanded="false">{{ $item->title }} <i class="bi bi-chevron-down"></i></div>
+              <div class="g-faq-a"><p>{!! $item->description !!}</p></div>
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </section>
 
     @include('layouts.contact-us')
 
-  </main><!-- End #main -->
-
-  <!-- <div id="flake">&#10052;</div> -->
-@endsection
-
-@section('css')
-  <link rel="stylesheet" href="{{ asset('css/snowfall.css') }}">
+  </main>
 @endsection
 
 @section('script')
-  <script src="{{ asset('js/snowfall.js') }}"></script>
   <script>
-    $(document).ready(function(){
-      $('.card-item-link').click(function(){
-        let slug = $(this).data('slug');
-        window.location = "{{ url('') }}/"+slug;
+    $(document).ready(function () {
+      // Click en card de tipo → navega al slug
+      $('.card-item-link').click(function () {
+        window.location = "{{ url('') }}/" + $(this).data('slug');
+      });
+
+      // Acordeón FAQ
+      $('.g-faq-q').click(function () {
+        var open = $(this).attr('aria-expanded') === 'true';
+        $('.g-faq-q').attr('aria-expanded', 'false');
+        $('.g-faq-a').removeClass('open');
+        if (!open) {
+          $(this).attr('aria-expanded', 'true');
+          $(this).next('.g-faq-a').addClass('open');
+        }
       });
     });
+
+    // Contadores
+    if (window.PureCounter) new PureCounter();
   </script>
 @endsection

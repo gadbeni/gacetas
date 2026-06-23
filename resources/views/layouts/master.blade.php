@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -22,146 +22,129 @@
     @else
         <link rel="shortcut icon" href="{{ Voyager::image($admin_favicon) }}" type="image/png">
     @endif
-    {{-- <link href="lp/assets/img/favicon.png" rel="icon">
-    <link href="lp/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> --}}
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="{{ asset('lp/assets/vendor/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ asset('lp/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Icons -->
     <link href="{{ asset('lp/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('lp/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+
+    <!-- Sliders / lightbox / animations -->
     <link href="{{ asset('lp/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lp/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lp/assets/vendor/aos/aos.css') }}" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
-    <link href="{{ asset('lp/assets/css/style.css') }}" rel="stylesheet">
+    <!-- Gaceta theme -->
+    <link href="{{ asset('css/gaceta.css') }}" rel="stylesheet">
 
-    <!-- =======================================================
-    * Template Name: BizLand - v3.3.0
-    * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
+    @yield('css')
 </head>
 
 <body>
 
-  <!-- ======= Top Bar ======= -->
-  <section id="topbar" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-      <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:{{ setting('site.email') }}">{{ setting('site.email') }}</a></i>
-        <i class="bi bi-phone d-flex align-items-center ms-4"><span>{{ setting('site.phone') }}</span></i>
+  <!-- ======= Topbar ======= -->
+  <div class="g-topbar">
+    <div class="g-container">
+      <div class="g-tb-info">
+        <a href="mailto:{{ setting('site.email') }}"><i class="bi bi-envelope"></i> {{ setting('site.email') }}</a>
+        {{-- Sin teléfono/celular actualmente --}}
+        {{-- <span><i class="bi bi-telephone"></i> {{ setting('site.phone') }}</span> --}}
       </div>
-      <div class="social-links d-none d-md-flex align-items-center">
-        <a href="{{ setting('social.twitter') }}" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="{{ setting('social.facebook') }}" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="{{ setting('social.instagram') }}" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="{{ setting('social.youtube') }}" class="youtube"><i class="bi bi-youtube"></i></i></a>
+      <div class="g-tb-social">
+        <a href="{{ setting('social.facebook') }}" target="_blank"><i class="bi bi-facebook"></i> Facebook</a>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-between">
-
-    <div class="logo">
-        <!-- Uncomment below if you prefer to use an text logo -->
-        <!-- <h1><a href="index.html">NewBiz</a></h1> -->
+  <header class="g-header">
+    <div class="g-container">
+      <div class="g-logo">
         <a href="https://beni.gob.bo">
           <?php $logo = Voyager::setting('site.logo', ''); ?>
           @if($logo == '')
-            <img src="{{ asset('images/icon-alt.png') }}" alt="GADBENI" class="img-fluid">
+            <img src="{{ asset('images/icon-alt.png') }}" alt="GADBENI">
           @else
-            <img src="{{ Voyager::image($logo) }}" alt="GADBENI" class="img-fluid">
+            <img src="{{ Voyager::image($logo) }}" alt="GADBENI">
           @endif
         </a>
+      </div>
+      <nav class="g-nav" id="gNav">
+        <ul>
+          <li><a href="{{ url('') }}" class="active">Gaceta</a></li>
+          <li><a href="https://auditoria.beni.gob.bo/" target="_blank">Auditoría</a></li>
+          <li><a href="https://transparencia.beni.gob.bo/" target="_blank">Transparencia</a></li>
+          <li><a href="https://beni.gob.bo/" target="_blank">Gobernación</a></li>
+        </ul>
+      </nav>
+      <button class="g-nav-toggle" id="gNavToggle" aria-label="Menú"><i class="bi bi-list"></i></button>
     </div>
-
-    <nav id="navbar" class="navbar">
-      <ul>
-        <li><a href="{{ url('') }}" class="nav-link scrollto active">Gaceta</a></li>
-        <li><a href="https://siscor.ml" class="nav-link">SISCOR</a></li>
-        <li><a href="#" class="nav-link">Turismo</a></li>
-        <li><a href="#" class="nav-link">Agenda</a></li>
-      </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
-    </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
+  </header>
 
   @yield('content')
 
   <!-- ======= Footer ======= -->
-  <footer id="footer">
+  <footer class="g-footer">
 
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4>Recibe novedades</h4>
-            <p>Ingresa tu Email y recibe novedades acerca del Gobierno Autónomo del Beni</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscrirse">
-            </form>
-          </div>
-        </div>
+    <div class="g-newsletter">
+      <div class="g-container">
+        <h4>Recibe novedades</h4>
+        <p>Ingresa tu Email y recibe novedades acerca del Gobierno Autónomo del Beni</p>
+        <form action="" method="post">
+          <input type="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+          <button type="submit" class="g-btn g-btn-primary" style="background:var(--gold);color:var(--green-darker)">Suscribirse</button>
+        </form>
       </div>
     </div>
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
+    <div class="g-footer-top">
+      <div class="g-container">
+        <div class="g-footer-grid">
 
-          <div class="col-lg-3 col-md-6 footer-contact">
+          <div>
             <a href="#">
               <?php $logo = Voyager::setting('site.logo', ''); ?>
               @if($logo == '')
-                <img src="{{ asset('images/icon-alt.png') }}" alt="GADBENI" style="height: 60px" class="img-fluid">
+                <img src="{{ asset('images/icon-alt.png') }}" alt="GADBENI">
               @else
-                <img src="{{ Voyager::image($logo) }}" alt="GADBENI" style="height: 60px" class="img-fluid">
+                <img src="{{ Voyager::image($logo) }}" alt="GADBENI">
               @endif
             </a>
             <p>
-              {{ setting('site.address') }} <br>
-              Santísima Trinidad - Beni - Bolivia <br><br>
-              <strong>Telefono/Celular:</strong> {{ setting('site.phone') }}<br>
-              <strong>Email:</strong> {{ setting('site.email') }}<br>
+              Santísima Trinidad - Beni - Bolivia<br><br>
+              {{-- Sin teléfono/celular actualmente --}}
+              {{-- <strong>Teléfono/Celular:</strong> {{ setting('site.phone') }}<br> --}}
+              <strong>Email:</strong> {{ setting('site.email') }}
             </p>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <div>
             <h4>GADBENI</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://beni.gob.bo">Inicio</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://siscor.ml">SISCOR</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Turismo</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Agenda</a></li>
+              <li><a href="https://beni.gob.bo/" target="_blank"><i class="bx bx-chevron-right"></i> Gobernación</a></li>
+              <li><a href="https://auditoria.beni.gob.bo/" target="_blank"><i class="bx bx-chevron-right"></i> Auditoría</a></li>
+              <li><a href="https://transparencia.beni.gob.bo/" target="_blank"><i class="bx bx-chevron-right"></i> Transparencia</a></li>
+              <li><a href="{{ url('') }}"><i class="bx bx-chevron-right"></i> Gaceta</a></li>
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <div>
             <h4>Enlaces</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Proyectos</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Buzón de sugerencias</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Trabaja con nosotros</a></li>
+              <li><a href="#"><i class="bx bx-chevron-right"></i> Proyectos</a></li>
+              <li><a href="#"><i class="bx bx-chevron-right"></i> Buzón de sugerencias</a></li>
+              <li><a href="#"><i class="bx bx-chevron-right"></i> Trabaja con nosotros</a></li>
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Nuestras redes sociales</h4>
+          <div>
+            <h4>Síguenos</h4>
             <p>Echa un vistazo a nuestras redes sociales</p>
-            <div class="social-links mt-3">
-              <a href="{{ setting('social.twitter') }}" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="{{ setting('social.facebook') }}" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="{{ setting('social.instagram') }}" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="{{ setting('social.youtube') }}" class="youtube"><i class="bx bxl-youtube"></i></a>
+            <div class="g-footer-social">
+              <a href="{{ setting('social.facebook') }}" target="_blank"><i class="bi bi-facebook"></i></a>
             </div>
           </div>
 
@@ -169,39 +152,44 @@
       </div>
     </div>
 
-    <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <a href="https://beni.gob.bo" target="_blank"><strong><span>GADBENI</span></strong></a>. Todos los derechos reservados
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-        Desarrollado por <a href="#">Unidad de Desarrollo de Software</a>
+    <div class="g-footer-bottom">
+      <div class="g-container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;width:100%;max-width:var(--container)">
+        <span>&copy; {{ date('Y') }} <strong><span>GADBENI</span></strong>. Todos los derechos reservados.</span>
+        <span>Desarrollado por Unidad de Desarrollo de Software</span>
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="g-top" id="gTop"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Vendor JS Files -->
-    <script src="{{ asset('lp/assets/vendor/aos/aos.js') }}"></script>
-    <script src="{{ asset('lp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('lp/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-    <script src="{{ asset('lp/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ asset('lp/assets/vendor/php-email-form/validate.js') }}"></script>
-    <script src="{{ asset('lp/assets/vendor/purecounter/purecounter.js') }}"></script>
-    <script src="{{ asset('lp/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('lp/assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
-
-  <!-- Template Main JS File -->
-  <script src="lp/assets/js/main.js"></script>
-
+  <!-- jQuery (usado por búsqueda AJAX) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="{{ asset('lp/assets/vendor/aos/aos.js') }}"></script>
+  <script src="{{ asset('lp/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ asset('lp/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ asset('lp/assets/vendor/purecounter/purecounter.js') }}"></script>
 
-  @yield('css')
+  <script>
+    // Animaciones
+    if (window.AOS) AOS.init({ duration: 700, once: true });
+    // Lightbox video
+    if (window.GLightbox) GLightbox({ selector: '.glightbox' });
+
+    // Menú móvil
+    var navToggle = document.getElementById('gNavToggle');
+    var nav = document.getElementById('gNav');
+    if (navToggle) navToggle.addEventListener('click', function () { nav.classList.toggle('open'); });
+
+    // Back to top + header al hacer scroll
+    var topBtn = document.getElementById('gTop');
+    var header = document.querySelector('.g-header');
+    function onScroll() {
+      if (window.scrollY > 400) topBtn.classList.add('show'); else topBtn.classList.remove('show');
+      if (window.scrollY > 30) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+  </script>
 
   @yield('script')
 
